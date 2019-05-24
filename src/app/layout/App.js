@@ -1,10 +1,18 @@
 import React from 'react';
-
+import { ThemeProvider } from 'styled-components';
+import theme from './theme';
+import GlobalStyle from './global-styles';
+import NavBar from 'src/features/nav/NavBar';
 
 function App() {
   return (
     <>
-      <p>hello</p>
+      <ThemeProvider theme={theme}>
+        <>
+          <GlobalStyle />
+          <NavBar />
+        </>
+      </ThemeProvider>
     </>
   );
 }
