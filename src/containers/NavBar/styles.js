@@ -8,7 +8,7 @@ export const Navigation = styled.nav`
   align-items: center;
   justify-content: space-between;
   height: 30px;
-  padding: 15px 12px;
+  padding: 15px;
   background-color: white;
   z-index: 7777;
   transform: translate3d(0, 0, 0);
@@ -17,7 +17,7 @@ export const Navigation = styled.nav`
 `;
 
 export const Link = styled.a`
-  margin-left: 12px;
+  margin-left: 15px;
 `;
 
 export const LeftNav = styled.div`

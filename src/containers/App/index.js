@@ -2,19 +2,20 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import theme from './theme';
 import GlobalStyle from './global-styles';
-import NavBar from 'src/features/nav/NavBar';
+import NavBar from 'src/containers/NavBar';
 
-function App() {
+function Index() {
   return (
     <>
       <ThemeProvider theme={theme}>
         <>
           <GlobalStyle />
           <NavBar />
+          {/*<LandingPage/>*/}
         </>
       </ThemeProvider>
     </>
   );
 }
 
-export default App;
+export default Index;

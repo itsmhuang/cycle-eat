@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './app/layout/App';
+import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 
 const rootEl = document.getElementById('root');
@@ -10,7 +10,7 @@ let render = () => {
 };
 
 if (module.hot) {
-  module.hot.accept('./app/layout/App', () => {
+  module.hot.accept('./containers/App', () => {
     setTimeout(render);
   });
 }

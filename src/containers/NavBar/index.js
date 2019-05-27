@@ -1,6 +1,6 @@
 import React from 'react';
 import logoPath from 'public/assets/logo-temp.png';
-import * as Styled from './styled-elements';
+import * as Styled from './styles';
 
 const NavBar = () => {
   return (
