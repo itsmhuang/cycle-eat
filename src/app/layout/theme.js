@@ -1,6 +1,6 @@
 export default {
   colors: {
-    white: '##fbfbfb',
+    white: '#fbfbfb',
     black: '#444444',
   },
   breakpoints: {

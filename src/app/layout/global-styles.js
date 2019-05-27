@@ -2,15 +2,20 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
 
+  @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
   html,
   body {
     height: 100%;
     width: 100%;
+    margin: 0;
     font-size: 16px;
+    background-color: ${props => props.theme.colors.white};
     color: ${props => props.theme.colors.black};
-    font-family: 'Helvetica Neue', 'Segoe UI', Helvetica, Impact, Verdana, Arial, sans-serif;
+    font-family: 'Roboto', 'Helvetica Neue', 'Segoe UI', Helvetica, Impact, Verdana, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    
   }
 
   h1 { font-size: 32px; }

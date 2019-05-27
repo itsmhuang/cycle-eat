@@ -1,12 +1,23 @@
 import React from 'react';
-import logoPath from 'public/assets/logo.png';
+import logoPath from 'public/assets/logo-temp.png';
+import * as Styled from './styled-elements';
 
-function NavBar(props) {
+const NavBar = () => {
   return (
-    <>
-      the navbar
-    </>
+    <Styled.Navigation>
+      <Styled.LeftNav>
+        <a href="/">
+          <Styled.Logo src={logoPath} />
+        </a>
+      </Styled.LeftNav>
+      <Styled.RightNav>
+        <Styled.Link href="#">Register</Styled.Link>
+        <Styled.Link href="#">Sign In</Styled.Link>
+        
+      </Styled.RightNav>
+      
+    </Styled.Navigation>
   );
-}
+};
 
 export default NavBar;
