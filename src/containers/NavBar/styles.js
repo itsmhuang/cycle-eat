@@ -59,5 +59,9 @@ export const AccountBtn = styled(NavLink)`
   display: block;
 `;
 
-export const AccountDropdown = styled.div`
+export const DropdownContainer = styled.div`
+  position: relative;
+`;
+export const Dropdown = styled.div`
+  position: absolute;
 `;
