@@ -24,7 +24,11 @@ const NavBar = () => {
         </NavLink>
       </Styled.LeftNav>
       <Styled.RightNav>
-        {authenticated ? <LoggedInMenu logOut={handleLogOut} /> : <LoggedOutMenu logIn={handleLogIn} />}
+        {authenticated ? (
+          <LoggedInMenu logOut={handleLogOut} />
+        ) : (
+          <LoggedOutMenu logIn={handleLogIn} />
+        )}
       </Styled.RightNav>
     </Styled.Navigation>
   );
