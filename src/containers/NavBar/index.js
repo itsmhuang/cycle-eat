@@ -6,7 +6,7 @@ import LoggedInMenu from './LoggedInMenu';
 import LoggedOutMenu from './LoggedOutMenu';
 
 const NavBar = () => {
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(true);
 
   const handleLogIn = () => {
     setAuthenticated(true);

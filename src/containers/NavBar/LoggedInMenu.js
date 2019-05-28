@@ -1,12 +1,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import * as Styled from './styles';
-import { NavItem } from './styles';
+import { NavBtn, User } from './styles';
+
 
 const LoggedInMenu = ({ logOut }) => {
   return (
     <>
-      <a href="#" onClick={() => logOut()}>Account</a>
+      <NavBtn href="#" onClick={() => logOut()}>
+        <User />
+      </NavBtn>
     </>
   );
 };

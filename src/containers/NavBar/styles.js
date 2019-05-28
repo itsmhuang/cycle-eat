@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 // import React from 'react';
 import { NavLink } from 'react-router-dom';
+import UserSvg from 'src/assets/svg/User';
 
 export const Navigation = styled.nav`
   position: sticky;
@@ -33,4 +34,15 @@ export const RightNav = styled.div`
 
 export const Logo = styled.img`
   width: 50%;
+`;
+
+export const NavBtn = styled.button`
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+`;
+
+export const User = styled(UserSvg)`
+  width: 15px;
+  color: ${props => props.theme.colors.teal};
 `;

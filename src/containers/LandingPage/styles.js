@@ -12,6 +12,8 @@ export const HeroImage = styled.img`
   top: -61px;
   left: 0;
   height: 100vh;
+  object-fit: cover;
+  width: 100%;
 `;
 
 export const Content = styled.div`
@@ -35,4 +37,3 @@ export const SubHeader = styled.h2`
   margin-top: 0;
   text-shadow: 1px 1px ${props => props.theme.colors.black};
 `;
-
