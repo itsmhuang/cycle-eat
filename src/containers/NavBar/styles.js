@@ -58,6 +58,3 @@ export const User = styled(UserSvg)`
 export const AccountBtn = styled(NavLink)`
   display: block;
 `;
-
-export const AccountDropdown = styled.div`
-`;
