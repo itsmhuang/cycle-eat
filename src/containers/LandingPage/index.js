@@ -13,6 +13,11 @@ const LandingPage = () => {
         <h1>Not sure where to eat after a ride?</h1>
       <h2>Search for cyclist-friendly cafes and restaurants</h2>
       </div>*/}
+      <Styled.Content>
+        <Styled.MainHeader>Not sure where to eat after a ride?</Styled.MainHeader>
+        <Styled.SubHeader>Search for cyclist-friendly cafes and restaurants</Styled.SubHeader>
+        
+      </Styled.Content>
       
     </Styled.Container>
   );
