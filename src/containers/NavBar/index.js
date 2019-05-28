@@ -1,24 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import logoPath from 'public/assets/logo-temp.png';
 import * as Styled from './styles';
+import LoggedInMenu from './LoggedInMenu';
+import LoggedOutMenu from './LoggedOutMenu';
 
 const NavBar = () => {
+  const [authenticated, setAuthenticated] = useState(false);
+
+  const handleLogIn = () => {
+    setAuthenticated(true);
+  };
+
+  const handleLogOut = () => {
+    setAuthenticated(false);
+  };
+
   return (
     <Styled.Navigation>
       <Styled.LeftNav>
         <NavLink to="/">
           <Styled.Logo src={logoPath} />
         </NavLink>
-        
       </Styled.LeftNav>
       <Styled.RightNav>
-        
-        <Styled.NavItem to="/register">Register</Styled.NavItem>
-        <Styled.NavItem to="/sign-in">Sign In</Styled.NavItem>
-        
+        {authenticated ? <LoggedInMenu logOut={handleLogOut} /> : <LoggedOutMenu logIn={handleLogIn} />}
       </Styled.RightNav>
-      
     </Styled.Navigation>
   );
 };
