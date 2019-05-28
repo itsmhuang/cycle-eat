@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+// import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 export const Navigation = styled.nav`
   position: sticky;
@@ -16,7 +18,7 @@ export const Navigation = styled.nav`
   border-bottom: 1px solid #ccc;
 `;
 
-export const Link = styled.a`
+export const NavItem = styled(NavLink)`
   margin-left: 15px;
 `;
 

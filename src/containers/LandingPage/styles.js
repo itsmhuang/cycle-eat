@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import heroImgPath from 'public/assets/bike-menu.jpg';
 
 export const Container = styled.div`
   position: relative;
@@ -28,7 +27,7 @@ export const Content = styled.div`
 `;
 
 export const MainHeader = styled.h1`
-  margin-top: 0;
+  margin: 0;
   text-shadow: 1px 1px ${props => props.theme.colors.black};
 `;
 

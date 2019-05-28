@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import logoPath from 'public/assets/logo-temp.png';
 import * as Styled from './styles';
 
@@ -6,13 +7,15 @@ const NavBar = () => {
   return (
     <Styled.Navigation>
       <Styled.LeftNav>
-        <a href="/">
+        <NavLink to="/">
           <Styled.Logo src={logoPath} />
-        </a>
+        </NavLink>
+        
       </Styled.LeftNav>
       <Styled.RightNav>
-        <Styled.Link href="#">Register</Styled.Link>
-        <Styled.Link href="#">Sign In</Styled.Link>
+        
+        <Styled.NavItem to="/register">Register</Styled.NavItem>
+        <Styled.NavItem to="/sign-in">Sign In</Styled.NavItem>
         
       </Styled.RightNav>
       
