@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Styled from './styles';
 import heroPath from 'public/assets/bike-menu.jpg';
-import { NavBtn } from 'src/containers/NavBar/styles';
+// import { NavBtn } from 'src/containers/NavBar/styles';
 
 const LandingPage = () => {
   return (
