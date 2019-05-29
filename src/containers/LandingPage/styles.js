@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import {NavBtn} from 'src/containers/NavBar/styles';
+import Search from 'src/assets/svg/Search';
 
 export const Container = styled.div`
   position: relative;
@@ -37,3 +39,46 @@ export const SubHeader = styled.h2`
   margin-top: 0;
   text-shadow: 1px 1px ${props => props.theme.colors.black};
 `;
+
+
+ export const SearchBarContainer = styled.div`
+background-color: ${props => props && props.theme.colors.white};
+  font-size: 16px;
+  margin: 0 auto;
+  padding: 10px;
+  border-radius: 5px;
+  width: 55%;
+  text-align: left;
+  display: inline-block;
+  
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    width: 80%;
+  }
+`;
+
+export const SearchTitle = styled.h2`
+  display: inline-block;
+  margin: 0 10px;
+  color: ${props => props && props.theme.colors.black};
+  font-size: inherit;
+  font-weight: bold;
+`;
+
+export const SearchBar = styled.input`
+  background-color: ${props => props && props.theme.colors.white};
+  border: 0;
+  font-size: inherit;
+  outline: 0;
+  padding: 0;
+  font-family: inherit;
+`;
+
+export const SearchBtn = styled(NavBtn)`
+  float: right;
+`;
+
+export const SearchIcon = styled(Search)`
+  width: 18px;
+  color: ${props => props && props.theme.colors.teal};
+`;
+

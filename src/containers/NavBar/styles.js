@@ -12,7 +12,7 @@ export const Navigation = styled.nav`
   justify-content: space-between;
   height: 30px;
   padding: 15px;
-  background-color: white;
+  background-color: ${props => props && props.theme.colors.white};
   z-index: 7777;
   transform: translate3d(0, 0, 0);
 
@@ -70,6 +70,6 @@ export const Dropdown = styled.div`
   right: 0px;
   width: 100px;
   text-align: left;
-  background-color: white;
+  background-color: ${props => props && props.theme.colors.white};
   border: ${props => props && `1px solid ${props.theme.colors.lightGray}`};
 `;

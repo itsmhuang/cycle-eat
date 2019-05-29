@@ -6,9 +6,7 @@ import * as Styled from './styles';
 const AccountPage = ({ logOut }) => {
   return (
     <>
-      <NavBtn >
-        Log Out
-      </NavBtn>
+      Account Page
     </>
   );
 };
