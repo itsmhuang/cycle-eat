@@ -23,7 +23,7 @@ const LoggedInMenu = ({ logOut }) => {
     return () => {
       document.removeEventListener('click', closeMenu);
     };
-  });
+  },[isMenuShown]);
 
   return (
     <>
