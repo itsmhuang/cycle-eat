@@ -64,7 +64,10 @@ export const LogOutBtn = styled(NavBtn)`
 export const DropdownContainer = styled.div`
   position: relative;
 `;
-export const Dropdown = styled.div`
+export const Dropdown = styled.ul`
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
   position: absolute;
   top: 10px;
   right: 0px;

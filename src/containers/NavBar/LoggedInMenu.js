@@ -4,14 +4,14 @@ import * as Styled from './styles';
 const LoggedInMenu = ({ logOut }) => {
   const [isMenuShown, setMenuVisibility] = useState(false);
 
-  const closeMenu = () => {
-    setMenuVisibility(false);
-  };
-
   const showMenu = () => {
     if (!isMenuShown) {
       setMenuVisibility(true);
     }
+  };
+
+  const closeMenu = () => {
+    setMenuVisibility(false);
   };
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const LoggedInMenu = ({ logOut }) => {
     return () => {
       document.removeEventListener('click', closeMenu);
     };
-  },[isMenuShown]);
+  }, [isMenuShown]);
 
   return (
     <>
@@ -34,10 +34,14 @@ const LoggedInMenu = ({ logOut }) => {
       {isMenuShown && (
         <Styled.DropdownContainer>
           <Styled.Dropdown>
-            <Styled.AccountBtn to="/account">Account</Styled.AccountBtn>
-            <Styled.LogOutBtn onClick={() => logOut()}>
-              Log Out
-            </Styled.LogOutBtn>
+            <li>
+              <Styled.AccountBtn to="/account">Account</Styled.AccountBtn>
+            </li>
+            <li>
+              <Styled.LogOutBtn onClick={() => logOut()}>
+                Log Out
+              </Styled.LogOutBtn>
+            </li>
           </Styled.Dropdown>
         </Styled.DropdownContainer>
       )}

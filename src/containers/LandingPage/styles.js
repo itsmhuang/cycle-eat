@@ -36,7 +36,7 @@ export const MainHeader = styled.h1`
 `;
 
 export const SubHeader = styled.h2`
-  margin-top: 0;
+  margin: 0 0 10px;
   text-shadow: 1px 1px ${props => props.theme.colors.black};
 `;
 
