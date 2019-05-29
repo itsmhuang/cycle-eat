@@ -46,10 +46,6 @@ export const NavBtn = styled.button`
   color: inherit;
 `;
 
-export const LogOutBtn = styled(NavBtn)`
-  font-size: 16px;
-`;
-
 export const User = styled(UserSvg)`
   width: 18px;
   color: ${props => props.theme.colors.teal};
@@ -57,6 +53,12 @@ export const User = styled(UserSvg)`
 
 export const AccountBtn = styled(NavLink)`
   display: block;
+  margin: 10px;
+`;
+
+export const LogOutBtn = styled(NavBtn)`
+  font-size: 16px;
+  margin: 10px;
 `;
 
 export const DropdownContainer = styled.div`
@@ -64,4 +66,10 @@ export const DropdownContainer = styled.div`
 `;
 export const Dropdown = styled.div`
   position: absolute;
+  top: 10px;
+  right: 0px;
+  width: 100px;
+  text-align: left;
+  background-color: white;
+  border: ${props => props && `1px solid ${props.theme.colors.lightGray}`};
 `;
