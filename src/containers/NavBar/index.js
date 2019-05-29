@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import logoPath from 'public/assets/logo-temp.png';
 import * as Styled from './styles';
 import LoggedInMenu from './LoggedInMenu';
 import LoggedOutMenu from './LoggedOutMenu';
 
-const NavBar = () => {
+const NavBar = (props) => {
   const [authenticated, setAuthenticated] = useState(true);
 
   const handleLogIn = () => {
@@ -14,6 +14,7 @@ const NavBar = () => {
 
   const handleLogOut = () => {
     setAuthenticated(false);
+    props.history.push('/');
   };
 
   return (
@@ -34,4 +35,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default withRouter(NavBar);
