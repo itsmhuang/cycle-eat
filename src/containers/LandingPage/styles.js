@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import { NavBtn } from 'src/containers/NavBar/styles';
-import Search from 'src/assets/svg/Search';
 
 export const Container = styled.div`
   position: relative;

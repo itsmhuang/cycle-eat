@@ -38,6 +38,7 @@ export const SearchBarContainer = styled.form`
     border-top: ${props =>
       props && `1px solid ${props.theme.colors.lightGray}`};
     width: 100%;
+    text-align: left;
   }
 `;
 

@@ -13,14 +13,12 @@ const PlaceInput = () => {
   const onChange = address => {
     setAddress(address);
   };
-  
+
   const scriptUrl = `https://maps.googleapis.com/maps/api/js?key=${
     process.env.REACT_APP_PLACES_API_KEY
   }&libraries=places`;
 
   const handleFormSubmit = event => {
-    event.preventDefault();
-
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(latLng => console.log('Success', latLng))
@@ -30,6 +28,7 @@ const PlaceInput = () => {
   const inputProps = {
     value: address,
     onChange,
+    placeholder: 'address, neighborhood, city, state, or zip',
   };
 
   const cssClasses = {
@@ -41,10 +40,17 @@ const PlaceInput = () => {
   return (
     <>
       <Script url={scriptUrl} onLoad={() => setScriptLoaded(true)} />
-      <Styled.SearchBarContainer onSubmit={handleFormSubmit}>
+      <Styled.SearchBarContainer
+        onSubmit={handleFormSubmit}
+        placeholder="hello"
+      >
         <Styled.SearchTitle>Near</Styled.SearchTitle>
         {scriptLoaded && (
-          <PlacesAutocomplete inputProps={inputProps} classNames={cssClasses} />
+          <PlacesAutocomplete
+            inputProps={inputProps}
+            classNames={cssClasses}
+            onEnterKeyDown={handleFormSubmit}
+          />
         )}
         <Styled.SearchBtn type="submit">
           <Styled.SearchIcon />

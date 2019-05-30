@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as Styled from './styles';
 import heroPath from 'public/assets/bike-menu.jpg';
-import Script from 'react-load-script';
 import PlaceInput from 'src/components/PlaceInput';
 
 const LandingPage = () => {
