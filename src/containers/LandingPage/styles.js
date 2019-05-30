@@ -54,6 +54,45 @@ export const SearchBarContainer = styled.div`
   }
 `;
 
+export const SearchBarContainer2 = styled.form`
+  display: flex;
+  background-color: ${props => props && props.theme.colors.white};
+  outline: 0;
+  padding: 10px;
+  margin: 0 auto;
+  width: 55%;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
+    width: 80%;
+  }
+
+  .form-group {
+    position: relative;
+    flex: 2;
+  }
+
+  .form-input {
+    display: inline-block;
+    background-color: ${props => props && props.theme.colors.white};
+    border: 0;
+    font-size: inherit;
+    outline: 0;
+    padding: 0;
+    font-family: inherit;
+    width: 100%;
+  }
+
+  .autocomplete-container {
+    position: absolute;
+    top: 30.5px;
+    background-color: ${props => props && props.theme.colors.white};
+    border: 0;
+    border-top: ${props =>
+      props && `1px solid ${props.theme.colors.lightGray}`};
+    width: 100%;
+  }
+`;
+
 export const SearchTitle = styled.h2`
   display: inline-block;
   margin: 0 10px 0 0;
@@ -73,6 +112,7 @@ export const SearchBar = styled.input`
 `;
 
 export const SearchBtn = styled(NavBtn)`
+  background-color: ${props => props && props.theme.colors.white};
   float: right;
   margin: 0;
 `;

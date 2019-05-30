@@ -16,7 +16,8 @@ export const Navigation = styled.nav`
   z-index: 7777;
   transform: translate3d(0, 0, 0);
 
-  border-bottom: 1px solid #ccc;
+  border-bottom: ${props =>
+    props && `1px solid ${props.theme.colors.lightGray}`};
 `;
 
 export const LeftNav = styled.div`
