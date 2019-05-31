@@ -22,6 +22,7 @@ export const Navigation = styled.nav`
 
 export const LeftNav = styled.div`
   //display: flex;
+  flex-shrink: 0;
 `;
 
 export const RightNav = styled.div`
@@ -30,7 +31,7 @@ export const RightNav = styled.div`
 `;
 
 export const Logo = styled.img`
-  width: 50%;
+  width: 150px;
 `;
 
 export const NavLinkItem = styled(NavLink)`
