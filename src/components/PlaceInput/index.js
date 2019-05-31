@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as Styled from './styles';
 import Script from 'react-load-script';
 import PlacesAutocomplete, {
@@ -8,10 +8,16 @@ import PlacesAutocomplete, {
 
 const PlaceInput = () => {
   const [address, setAddress] = useState('');
+  const [itemSelected, setItemSelected] = useState(false);
   const [scriptLoaded, setScriptLoaded] = useState(false);
 
   const onChange = address => {
     setAddress(address);
+  };
+
+  const onSelectDropdown = address => {
+    setAddress(address);
+    setItemSelected(true);
   };
 
   const scriptUrl = `https://maps.googleapis.com/maps/api/js?key=${
@@ -19,19 +25,28 @@ const PlaceInput = () => {
   }&libraries=places`;
 
   const handleFormSubmit = event => {
-    event.preventDefault();
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(latLng => console.log('Success', latLng))
       .catch(error => console.error('Error', error));
   };
 
+  //submit form right after selecting dropdown via click or enter key
+  useEffect(() => {
+    if (itemSelected) {
+      handleFormSubmit();
+    }
+    return () => {
+      setItemSelected(false);
+    };
+  }, [itemSelected]);
+
   const inputProps = {
     value: address,
     onChange,
     placeholder: 'address, neighborhood, city, state, or zip',
     type: 'search',
-    autoFocus: true
+    autoFocus: true,
   };
 
   const cssClasses = {
@@ -44,7 +59,10 @@ const PlaceInput = () => {
     <>
       <Script url={scriptUrl} onLoad={() => setScriptLoaded(true)} />
       <Styled.SearchBarContainer
-        onSubmit={handleFormSubmit}
+        onSubmit={e => {
+          e.preventDefault();
+          handleFormSubmit();
+        }}
       >
         <Styled.SearchTitle>Near</Styled.SearchTitle>
         {scriptLoaded && (
@@ -52,6 +70,7 @@ const PlaceInput = () => {
             inputProps={inputProps}
             classNames={cssClasses}
             onEnterKeyDown={handleFormSubmit}
+            onSelect={onSelectDropdown}
           />
         )}
         <Styled.SearchBtn type="submit">
