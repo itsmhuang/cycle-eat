@@ -8,7 +8,7 @@ import LandingPage from 'src/containers/LandingPage';
 import AccountPage from 'src/containers/AccountPage';
 import MapPage from 'src/containers/MapPage';
 
-function Index() {
+function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -16,7 +16,7 @@ function Index() {
           <GlobalStyle />
           <NavBar />
           <Route path="/" exact component={LandingPage} />
-          <Route path="/account" exact component={AccountPage} />
+          <Route path="/account" component={AccountPage} />
           <Route path="/search" component={MapPage} />
         </>
       </ThemeProvider>
@@ -24,4 +24,4 @@ function Index() {
   );
 }
 
-export default Index;
+export default App;

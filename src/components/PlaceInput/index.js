@@ -6,17 +6,16 @@ import PlacesAutocomplete, {
   getLatLng,
 } from 'react-places-autocomplete';
 
-const PlaceInput = () => {
-  const [address, setAddress] = useState('');
+const PlaceInput = ({ onFormSubmit, address, onSetAddress, onSetLatLng }) => {
   const [itemSelected, setItemSelected] = useState(false);
   const [scriptLoaded, setScriptLoaded] = useState(false);
 
   const onChange = address => {
-    setAddress(address);
+    onSetAddress(address);
   };
 
   const onSelectDropdown = address => {
-    setAddress(address);
+    onSetAddress(address);
     setItemSelected(true);
   };
 
@@ -27,7 +26,10 @@ const PlaceInput = () => {
   const handleFormSubmit = event => {
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
-      .then(latLng => console.log('Success', latLng))
+      .then(latLng => {
+        onSetLatLng(latLng);
+        onFormSubmit();
+      })
       .catch(error => console.error('Error', error));
   };
 
@@ -55,6 +57,10 @@ const PlaceInput = () => {
     autocompleteContainer: 'autocomplete-container',
   };
 
+  const searchOptions = {
+    types: ['(geocode)'],
+    // types: ['(cities)'],
+  };
   return (
     <>
       <Script url={scriptUrl} onLoad={() => setScriptLoaded(true)} />
@@ -71,6 +77,7 @@ const PlaceInput = () => {
             classNames={cssClasses}
             onEnterKeyDown={handleFormSubmit}
             onSelect={onSelectDropdown}
+            searchOptions={searchOptions}
           />
         )}
         <Styled.SearchBtn type="submit">
