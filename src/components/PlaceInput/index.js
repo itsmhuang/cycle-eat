@@ -19,6 +19,7 @@ const PlaceInput = () => {
   }&libraries=places`;
 
   const handleFormSubmit = event => {
+    event.preventDefault();
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(latLng => console.log('Success', latLng))
@@ -44,7 +45,6 @@ const PlaceInput = () => {
       <Script url={scriptUrl} onLoad={() => setScriptLoaded(true)} />
       <Styled.SearchBarContainer
         onSubmit={handleFormSubmit}
-        placeholder="hello"
       >
         <Styled.SearchTitle>Near</Styled.SearchTitle>
         {scriptLoaded && (

@@ -9,6 +9,7 @@ export const SearchBarContainer = styled.form`
   padding: 10px;
   margin: 0 auto;
   width: 55%;
+  border-radius: 3px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     width: 80%;
@@ -17,6 +18,7 @@ export const SearchBarContainer = styled.form`
   .form-group {
     position: relative;
     flex: 2;
+    margin-right: 10px;
   }
 
   .form-input {
