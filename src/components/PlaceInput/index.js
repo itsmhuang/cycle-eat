@@ -29,6 +29,8 @@ const PlaceInput = () => {
     value: address,
     onChange,
     placeholder: 'address, neighborhood, city, state, or zip',
+    type: 'search',
+    autoFocus: true
   };
 
   const cssClasses = {

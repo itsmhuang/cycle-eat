@@ -38,6 +38,7 @@ export const NavLinkItem = styled(NavLink)`
 `;
 
 export const NavBtn = styled.button`
+  background: transparent;
   border: 0;
   padding: 0;
   outline: 0;

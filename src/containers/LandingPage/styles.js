@@ -5,6 +5,10 @@ export const Container = styled.div`
   color: ${props => props.theme.colors.white};
   height: 100%;
   min-height: 80vh;
+  
+  @media (max-width: ${({ theme }) => theme.breakpoints.sm}) {
+    min-height: 50vh;
+  }
 `;
 
 export const HeroImage = styled.img`

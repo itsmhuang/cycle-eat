@@ -7,7 +7,9 @@ const LandingPage = () => {
   return (
     <>
       <Styled.Container>
-        <Styled.HeroImage src={heroPath} />
+        <picture>
+          <Styled.HeroImage src={heroPath} />
+        </picture>
 
         <Styled.Content>
           <Styled.MainHeader>
