@@ -1,22 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
-
 import * as Styled from './styles';
+import { Formik } from 'formik';
 
-const PlaceInput = ({query, onSetQuery, onFormSubmit}) => {
-  
+const PlaceInput = ({ query, onSetQuery, onFormSubmit }) => {
   const [autocomplete, setAutocomplete] = useState('');
-
   const inputEl = useRef(null);
-  // let autocomplete = null;
+  let setFieldValueFunc = null;
 
-  const onChange = e => {
+  const onChange = () => {
+    
+    let places = autocomplete.getPlaces();
+    console.log( 'places: ', places );
+    
     // e.preventDefault();
-    onSetQuery(e.target.value);
+    // onSetQuery(e.target.value);
+    setFieldValueFunc('searchQuery', autocomplete.getPlaces().formatted_address);
   };
 
   const handleFormSubmit = event => {
     event.preventDefault();
-    
+
     onFormSubmit();
 
     /*if (autocomplete) {
@@ -55,15 +58,42 @@ const PlaceInput = ({query, onSetQuery, onFormSubmit}) => {
   }, [autocomplete]);
 
   return (
-    <>
-      <Styled.SearchBarContainer onSubmit={handleFormSubmit}>
-        <Styled.SearchTitle>Near</Styled.SearchTitle>
-        <Styled.SearchInput ref={inputEl} value={query} onChange={onChange} />
-        <Styled.SearchBtn type="submit">
-          <Styled.SearchIcon />
-        </Styled.SearchBtn>
-      </Styled.SearchBarContainer>
-    </>
+    <Formik
+      initialValues={{
+        searchQuery: query,
+      }}
+      onSubmit={(values, { setSubmitting }) => {
+        setSubmitting(false);
+        handleFormSubmit();
+      }}
+      render={({
+        isSubmitting,
+        values,
+        isValid,
+        setFieldValue,
+        // setSubmitting,
+      }) => {
+        setFieldValueFunc = setFieldValue;
+        return (
+          <Styled.SearchBarForm>
+            <Styled.SearchInput
+              type="text"
+              ref={inputEl}
+              name="searchQuery"
+              placeholder=""
+              // value={query}
+              // onChange={onChange}
+              onKeyDown={event => {
+                // prevent google autofill from submitting form, side effect: can't submit via enter while focused on this field
+                if (event.keyCode === 13) {
+                  event.preventDefault();
+                }
+              }}
+            />
+          </Styled.SearchBarForm>
+        );
+      }}
+    />
   );
 };
 

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { NavBtn } from 'src/containers/NavBar/styles';
 import Search from 'src/assets/svg/Search';
 
-export const SearchBarContainer = styled.form`
+export const SearchBarForm = styled.form`
   display: flex;
   background-color: ${props => props && props.theme.colors.white};
   outline: 0;
