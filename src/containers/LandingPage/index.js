@@ -13,8 +13,6 @@ const LandingPage = () => {
     setAbleToRedirect(true);
   };
   
-  
-  
   return (
     <>
       {!ableToRedirect ? (
