@@ -15,15 +15,9 @@ const PlaceInput = ({query, onSetQuery, onFormSubmit}) => {
   };
 
   const handleFormSubmit = event => {
-    /*geocodeByAddress(address)
-      .then(results => getLatLng(results[0]))
-      .then(latLng => console.log('Success', latLng))
-      .catch(error => console.error('Error', error));
-    
-    */
     event.preventDefault();
     
-    onFormSubmit(true);
+    onFormSubmit();
 
     /*if (autocomplete) {
       const places = autocomplete.getPlaces();

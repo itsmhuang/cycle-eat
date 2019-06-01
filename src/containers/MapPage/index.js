@@ -1,9 +1,14 @@
 import React from 'react';
-import PlaceInput2 from 'src/components/PlaceInput2';
 // import * as Styled from './styles';
 
-const MapPage = () => {
-  return <PlaceInput2 />;
+
+const MapPage = ({location}) => {
+  
+  console.log( 'location: ', location );
+  
+  return (
+    <>this will be the map page</>
+  );
 };
 
 export default MapPage;

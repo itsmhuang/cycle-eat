@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 
@@ -8,9 +8,9 @@ const rootEl = document.getElementById('root');
 
 let render = () => {
   ReactDOM.render(
-    <BrowserRouter>
+    <Router>
       <App />
-    </BrowserRouter>,
+    </Router>,
     rootEl,
   );
 };

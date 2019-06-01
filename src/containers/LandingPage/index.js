@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import queryString from 'query-string';
 import { Redirect } from 'react-router-dom';
 import * as Styled from './styles';
 import heroPath from 'public/assets/bike-menu.jpg';
@@ -6,10 +7,17 @@ import PlaceInput from 'src/components/PlaceInput';
 
 const LandingPage = () => {
   const [query, setQuery] = useState('');
-  const [formSubmitted, setFormSubmitted] = useState('');
+  const [ableToRedirect, setAbleToRedirect] = useState(false);
+  
+  const handleFormSubmit = () => {
+    setAbleToRedirect(true);
+  };
+  
+  
+  
   return (
     <>
-      {!formSubmitted ? (
+      {!ableToRedirect ? (
         <Styled.Container>
           <picture>
             <Styled.HeroImage src={heroPath} />
@@ -24,8 +32,8 @@ const LandingPage = () => {
             </Styled.SubHeader>
             <PlaceInput
               query={query}
-              onSetQuery={setQuery}
-              onFormSubmit={setFormSubmitted}
+              onSetQuery={(e)=>setQuery(e.target.value)}
+              onFormSubmit={handleFormSubmit}
             />
           </Styled.Content>
         </Styled.Container>
@@ -33,6 +41,9 @@ const LandingPage = () => {
         <Redirect
           to={{
             pathname: '/search',
+            search: queryString.stringify({
+              loc: query,
+            }),
           }}
         />
       )}
