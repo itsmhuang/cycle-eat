@@ -1,59 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import * as Styled from './styles';
-import Script from 'react-load-script';
-import PlacesAutocomplete, {
-  geocodeByAddress,
-  getLatLng,
-} from 'react-places-autocomplete';
 
 const PlaceInput = () => {
   const [address, setAddress] = useState('');
-  const [scriptLoaded, setScriptLoaded] = useState(false);
 
-  const onChange = address => {
-    setAddress(address);
+  const inputEl = useRef(null);
+  let autocomplete = null;
+
+  const onChange = e => {
+    e.preventDefault();
+    setAddress(e.target.value);
   };
 
-  const scriptUrl = `https://maps.googleapis.com/maps/api/js?key=${
-    process.env.REACT_APP_PLACES_API_KEY
-  }&libraries=places`;
-
   const handleFormSubmit = event => {
-    geocodeByAddress(address)
+    /*geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(latLng => console.log('Success', latLng))
       .catch(error => console.error('Error', error));
+    
+    */
+    event.preventDefault();
+
+    console.log('autocomplete.getPlace(): ', autocomplete.getPlace());
   };
 
-  const inputProps = {
-    value: address,
-    onChange,
-    placeholder: 'address, neighborhood, city, state, or zip',
-    type: 'search',
-    autoFocus: true
+  const onScriptLoad = () => {
+    autocomplete = new window.google.maps.places.Autocomplete(inputEl.current, {
+      types: ['geocode'],
+    });
+    autocomplete.addListener('place_changed', onChange);
   };
 
-  const cssClasses = {
-    root: 'form-group',
-    input: 'form-input',
-    autocompleteContainer: 'autocomplete-container',
-  };
+  useEffect(() => {
+    if (!window.google) {
+      const script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${
+        process.env.REACT_APP_GOOGLE_API_KEY
+      }&libraries=places`;
+      const headScript = document.getElementsByTagName(`script`)[0];
+      headScript.parentNode.insertBefore(script, headScript);
+      script.addEventListener(`load`, onScriptLoad);
+      return () => script.removeEventListener(`load`, onScriptLoad);
+    } else {
+      onScriptLoad();
+    }
+  }, [window.google]);
 
   return (
     <>
-      <Script url={scriptUrl} onLoad={() => setScriptLoaded(true)} />
-      <Styled.SearchBarContainer
-        onSubmit={handleFormSubmit}
-        placeholder="hello"
-      >
+      <Styled.SearchBarContainer onSubmit={handleFormSubmit}>
         <Styled.SearchTitle>Near</Styled.SearchTitle>
-        {scriptLoaded && (
-          <PlacesAutocomplete
-            inputProps={inputProps}
-            classNames={cssClasses}
-            onEnterKeyDown={handleFormSubmit}
-          />
-        )}
+        <Styled.SearchInput ref={inputEl} value={address} onChange={onChange} />
         <Styled.SearchBtn type="submit">
           <Styled.SearchIcon />
         </Styled.SearchBtn>

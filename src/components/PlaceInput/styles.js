@@ -9,6 +9,7 @@ export const SearchBarContainer = styled.form`
   padding: 10px;
   margin: 0 auto;
   width: 55%;
+  border-radius: 3px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
     width: 80%;
@@ -17,6 +18,7 @@ export const SearchBarContainer = styled.form`
   .form-group {
     position: relative;
     flex: 2;
+    margin-right: 10px;
   }
 
   .form-input {
@@ -48,6 +50,17 @@ export const SearchTitle = styled.h2`
   color: ${props => props && props.theme.colors.black};
   font-size: inherit;
   font-weight: bold;
+`;
+
+export const SearchInput = styled.input`
+  display: inline-block;
+  background-color: ${props => props && props.theme.colors.white};
+  border: 0;
+  font-size: inherit;
+  outline: 0;
+  padding: 0;
+  font-family: inherit;
+  width: 100%;
 `;
 
 export const SearchBtn = styled(NavBtn)`
