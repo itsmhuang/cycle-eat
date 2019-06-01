@@ -18,7 +18,7 @@ const PlaceInput2 = () => {
       li.appendChild(document.createTextNode(prediction.description));
       document.getElementById('results').appendChild(li);
     });*/
-    console.log('predictions: ', predictions);
+    setList(predictions);
   };
 
   const onChange = e => {
@@ -58,7 +58,13 @@ const PlaceInput2 = () => {
   return (
     <>
       <input value={query} onChange={onChange} ref={inputEl} />
-      <div>{list}</div>
+      {list && (
+        <div>
+          {list.map(i => (
+            <li>{i.description}</li>
+          ))}
+        </div>
+      )}
     </>
   );
 };
