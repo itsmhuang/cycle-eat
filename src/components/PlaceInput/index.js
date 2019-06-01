@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react';
+
 import * as Styled from './styles';
 
-const PlaceInput = () => {
-  const [address, setAddress] = useState('');
+const PlaceInput = ({query, onSetQuery, onFormSubmit}) => {
+  
+  const [autocomplete, setAutocomplete] = useState('');
 
   const inputEl = useRef(null);
-  let autocomplete = null;
+  // let autocomplete = null;
 
   const onChange = e => {
-    e.preventDefault();
-    setAddress(e.target.value);
+    // e.preventDefault();
+    onSetQuery(e.target.value);
   };
 
   const handleFormSubmit = event => {
@@ -20,17 +22,21 @@ const PlaceInput = () => {
     
     */
     event.preventDefault();
+    
+    onFormSubmit(true);
 
-    console.log('autocomplete.getPlace(): ', autocomplete.getPlace());
+    /*if (autocomplete) {
+      const places = autocomplete.getPlaces();
+
+      console.log('places.geometry: ', places[0].geometry.location.lat());
+    }*/
   };
 
   const onScriptLoad = () => {
-    autocomplete = new window.google.maps.places.Autocomplete(inputEl.current, {
-      types: ['geocode'],
-    });
-    autocomplete.addListener('place_changed', onChange);
+    setAutocomplete(new window.google.maps.places.SearchBox(inputEl.current));
   };
 
+  //load script
   useEffect(() => {
     if (!window.google) {
       const script = document.createElement('script');
@@ -47,11 +53,18 @@ const PlaceInput = () => {
     }
   }, [window.google]);
 
+  //add event listener for searchBox
+  useEffect(() => {
+    if (autocomplete) {
+      autocomplete.addListener('places_changed', onChange);
+    }
+  }, [autocomplete]);
+
   return (
     <>
       <Styled.SearchBarContainer onSubmit={handleFormSubmit}>
         <Styled.SearchTitle>Near</Styled.SearchTitle>
-        <Styled.SearchInput ref={inputEl} value={address} onChange={onChange} />
+        <Styled.SearchInput ref={inputEl} value={query} onChange={onChange} />
         <Styled.SearchBtn type="submit">
           <Styled.SearchIcon />
         </Styled.SearchBtn>
