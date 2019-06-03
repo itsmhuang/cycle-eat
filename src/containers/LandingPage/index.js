@@ -30,7 +30,7 @@ const LandingPage = () => {
             </Styled.SubHeader>
             <PlaceInput
               query={query}
-              onSetQuery={(e)=>setQuery(e.target.value)}
+              onSetQuery={setQuery}
               onFormSubmit={handleFormSubmit}
             />
           </Styled.Content>

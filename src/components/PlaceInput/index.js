@@ -4,12 +4,15 @@ import { Formik } from 'formik';
 
 const PlaceInput = ({ query, onSetQuery, onFormSubmit }) => {
   const [autocomplete, setAutocomplete] = useState('');
+  const [inputVal, setInputVal] = useState('');
   const inputEl = useRef(null);
   let setFieldValueFunc = null;
 
   const onSelect = () => {
+    // console.log( 'inputEl: ', inputEl.current.value );
+    onSetQuery(inputEl.current.value);
     let places = autocomplete.getPlaces();
-    console.log('places: ', places);
+    // console.log('places: ', places);
     setFieldValueFunc(
       'searchQuery',
       autocomplete.getPlaces().formatted_address,
@@ -35,8 +38,8 @@ const PlaceInput = ({ query, onSetQuery, onFormSubmit }) => {
       }&libraries=places`;
       const headScript = document.getElementsByTagName(`script`)[0];
       headScript.parentNode.insertBefore(script, headScript);
-      script.addEventListener(`load`, onScriptLoad);
-      return () => script.removeEventListener(`load`, onScriptLoad);
+      script.addEventListener('load', onScriptLoad);
+      return () => script.removeEventListener('load', onScriptLoad);
     } else {
       onScriptLoad();
     }
@@ -54,7 +57,6 @@ const PlaceInput = ({ query, onSetQuery, onFormSubmit }) => {
       initialValues={{
         searchQuery: query,
       }}
-      
       render={({
         isSubmitting,
         values,
@@ -69,11 +71,12 @@ const PlaceInput = ({ query, onSetQuery, onFormSubmit }) => {
               type="text"
               ref={inputEl}
               name="searchQuery"
+              // value={inputVal}
               placeholder=""
               onKeyDown={event => {
                 // prevent google autofill from submitting form, side effect: can't submit via enter while focused on this field
                 if (event.keyCode === 13) {
-                  event.preventDefault();
+                  // event.preventDefault();
                 }
               }}
             />
