@@ -10,11 +10,12 @@ const PlaceInput = ({ query, onSetQuery, onFormSubmit }) => {
   let googleDropdown = document.getElementsByClassName('pac-container');
 
   const onSelect = () => {
-    // console.log( 'inputEl: ', inputEl.current.value );
     onSetQuery(inputEl.current.value);
     let places = autocomplete.getPlaces();
-    setField('searchQuery', autocomplete.getPlaces().formatted_address);
-    setItemSelected(true);
+    if (places.length) {
+      setField('searchQuery', autocomplete.getPlaces().formatted_address);
+      setItemSelected(true);
+    }
   };
 
   const handleFormSubmit = event => {
@@ -76,10 +77,7 @@ const PlaceInput = ({ query, onSetQuery, onFormSubmit }) => {
               name="searchQuery"
               placeholder=""
               onKeyDown={event => {
-                if (
-                  !itemSelected &&
-                  event.keyCode === 13
-                ) {
+                if (!itemSelected && event.keyCode === 13) {
                   event.preventDefault();
                 }
                 // prevent google autofill from submitting form, side effect: can't submit via enter while focused on this field
