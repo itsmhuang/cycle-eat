@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import * as Styled from './styles';
 import { Formik } from 'formik';
 
@@ -90,6 +91,12 @@ const PlaceInput = ({ query, onSetQuery, onFormSubmit }) => {
       }}
     />
   );
+};
+
+PlaceInput.propTypes = {
+  query: PropTypes.string.isRequired,
+  onSetQuery: PropTypes.func.isRequired,
+  onFormSubmit: PropTypes.func.isRequired,
 };
 
 export default PlaceInput;

@@ -3,7 +3,7 @@ import React from 'react';
 // import { NavBtn } from 'src/containers/NavBar/styles';
 // import * as Styled from './styles';
 
-const AccountPage = ({ logOut }) => {
+const AccountPage = () => {
   return (
     <>
       Account Page
