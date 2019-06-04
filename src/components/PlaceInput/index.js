@@ -4,6 +4,7 @@ import { Formik } from 'formik';
 
 const PlaceInput = ({ query, onSetQuery, onFormSubmit }) => {
   const [autocomplete, setAutocomplete] = useState('');
+  const [itemSelected, setItemSelected] = useState(false);
   const inputEl = useRef(null);
   let setField = null;
   let googleDropdown = document.getElementsByClassName('pac-container');
@@ -13,6 +14,7 @@ const PlaceInput = ({ query, onSetQuery, onFormSubmit }) => {
     onSetQuery(inputEl.current.value);
     let places = autocomplete.getPlaces();
     setField('searchQuery', autocomplete.getPlaces().formatted_address);
+    setItemSelected(true);
   };
 
   const handleFormSubmit = event => {
@@ -74,15 +76,10 @@ const PlaceInput = ({ query, onSetQuery, onFormSubmit }) => {
               name="searchQuery"
               placeholder=""
               onKeyDown={event => {
-                /*console.log(
-                  'googleDropdown: ',
-                  googleDropdown[googleDropdown.length - 1],
-                );*/
                 if (
-                  /*googleDropdown[0].style.display === 'none' &&*/
+                  !itemSelected &&
                   event.keyCode === 13
                 ) {
-                  // console.log( 'googleDropdown[0].style.display: ', googleDropdown[0].style.display );
                   event.preventDefault();
                 }
                 // prevent google autofill from submitting form, side effect: can't submit via enter while focused on this field
