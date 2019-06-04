@@ -65,11 +65,13 @@ export const SearchInput = styled.input`
 
 export const SearchBtn = styled(NavBtn)`
   background-color: ${props => props && props.theme.colors.white};
+  color: ${props => props.disabled ? props.theme.colors.lightGray : props.theme.colors.teal};
   float: right;
   margin: 0;
 `;
 
 export const SearchIcon = styled(Search)`
   width: 18px;
-  color: ${props => props && props.theme.colors.teal};
+  color: inherit;
+  
 `;

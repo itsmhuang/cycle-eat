@@ -80,10 +80,9 @@ const PlaceInput = ({ query, onSetQuery, onFormSubmit }) => {
                 if (!itemSelected && event.keyCode === 13) {
                   event.preventDefault();
                 }
-                // prevent google autofill from submitting form, side effect: can't submit via enter while focused on this field
               }}
             />
-            <Styled.SearchBtn type="submit">
+            <Styled.SearchBtn type="submit" disabled={!itemSelected}>
               <Styled.SearchIcon />
             </Styled.SearchBtn>
           </Styled.SearchBarForm>
