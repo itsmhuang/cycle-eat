@@ -6,7 +6,6 @@ import * as Styled from './styles';
 
 const MapPage = ({ location }) => {
   // console.log('location: ', queryString.parse(location.search));
-  // console.log('location: ', queryString.parse(location.search));
 
   const [scriptLoaded, setScriptLoaded] = useState(false);
 
@@ -21,14 +20,17 @@ const MapPage = ({ location }) => {
 
     if (!window.google) {
       headScript.parentNode.insertBefore(script, headScript);
-      setScriptLoaded(true);
     }
+    setScriptLoaded(true);
   }, [window.google]);
 
   return (
     <>
       <Styled.SearchBarContainer>
-        {/*<PlaceInput onFormSubmit={() => console.log('hello')} />*/}
+        <PlaceInput
+          onFormSubmit={() => console.log('hello')}
+          scriptLoaded={scriptLoaded}
+        />
       </Styled.SearchBarContainer>
 
       <Map scriptLoaded={scriptLoaded} />

@@ -22,13 +22,14 @@ const Map = ({ scriptLoaded }) => {
     );
 
     const gMapScript = scripts.find(script =>
-      script.src.includes('https://maps.googleapis.com/maps/api/js'),
+      script.src.includes('maps.googleapis.com/maps/api/js'),
     );
 
     if (scriptLoaded) {
       if (!window.google) {
         if (gMapScript) {
           gMapScript.addEventListener('load', onScriptLoad);
+          return () => gMapScript.removeEventListener('load', onScriptLoad);
         }
       } else {
         onScriptLoad();

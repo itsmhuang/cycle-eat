@@ -9,7 +9,7 @@ const LandingPage = () => {
   const [query, setQuery] = useState('');
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [ableToRedirect, setAbleToRedirect] = useState(false);
-
+  
   const handleFormSubmit = () => {
     setAbleToRedirect(true);
   };
@@ -25,12 +25,9 @@ const LandingPage = () => {
 
     if (!window.google) {
       headScript.parentNode.insertBefore(script, headScript);
-      setScriptLoaded(true);
     }
-    
-    
-  },[window.google]);
-  
+    setScriptLoaded(true);
+  }, [window.google]);
 
   return (
     <>
