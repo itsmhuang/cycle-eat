@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 import * as Styled from './styles';
 import { Formik } from 'formik';
 
-const PlaceInput = ({ query, onSetQuery, onFormSubmit, centered }) => {
+const PlaceInput = ({
+  query,
+  onSetQuery,
+  onFormSubmit,
+  centered,
+  scriptLoaded,
+}) => {
   const [value, setValue] = useState('');
   const [autocomplete, setAutocomplete] = useState('');
   const [itemSelected, setItemSelected] = useState(false);
@@ -12,7 +18,9 @@ const PlaceInput = ({ query, onSetQuery, onFormSubmit, centered }) => {
   let googleDropdown = document.getElementsByClassName('pac-container');
 
   const onSelect = () => {
-    onSetQuery ? onSetQuery(inputEl.current.value) : setValue(inputEl.current.value);
+    onSetQuery
+      ? onSetQuery(inputEl.current.value)
+      : setValue(inputEl.current.value);
     let places = autocomplete.getPlaces();
     if (places.length) {
       setField('searchQuery', autocomplete.getPlaces().formatted_address);
@@ -31,25 +39,27 @@ const PlaceInput = ({ query, onSetQuery, onFormSubmit, centered }) => {
 
   //add script
   useEffect(() => {
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${
-      process.env.REACT_APP_GOOGLE_API_KEY
-    }&libraries=places`;
-    const headScript = document.getElementsByTagName(`script`)[0];
-    if (!window.google) {
-      headScript.parentNode.insertBefore(script, headScript);
-      script.addEventListener('load', onScriptLoad);
-    } else {
-      if (googleDropdown.length) {
-        googleDropdown[0].remove();
+    const scripts = Array.prototype.slice.call(
+      document.getElementsByTagName('script'),
+    );
+
+    const gMapScript = scripts.find(script =>
+      script.src.includes('https://maps.googleapis.com/maps/api/js'),
+    );
+
+    if (scriptLoaded) {
+      if (!window.google) {
+        if (gMapScript) {
+          gMapScript.addEventListener('load', onScriptLoad);
+        }
+      } else {
+        if (googleDropdown.length) {
+          googleDropdown[0].remove();
+        }
+        onScriptLoad();
       }
-      onScriptLoad();
     }
-    return () => {
-      script.removeEventListener('load', onScriptLoad);
-    };
-  }, [window.google]);
+  }, [scriptLoaded]);
 
   //add listener for searchBox
   useEffect(() => {
@@ -99,10 +109,11 @@ PlaceInput.propTypes = {
   onSetQuery: PropTypes.func,
   onFormSubmit: PropTypes.func.isRequired,
   centered: PropTypes.bool,
+  scriptLoaded: PropTypes.bool.isRequired,
 };
 
 PlaceInput.defaultProps = {
-  centered: false
+  centered: false,
 };
 
 export default PlaceInput;
