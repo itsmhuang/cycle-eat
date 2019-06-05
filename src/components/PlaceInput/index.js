@@ -37,7 +37,7 @@ const PlaceInput = ({
     setAutocomplete(new window.google.maps.places.SearchBox(inputEl.current));
   };
 
-  //add script
+  //add event listener
   useEffect(() => {
     const scripts = Array.prototype.slice.call(
       document.getElementsByTagName('script'),
@@ -53,6 +53,8 @@ const PlaceInput = ({
           gMapScript.addEventListener('load', onScriptLoad);
         }
       } else {
+        //hot update adds dropdown container each time, need to clean up
+        //declarative tho, hopefully google doesn't change class name
         if (googleDropdown.length) {
           googleDropdown[0].remove();
         }
