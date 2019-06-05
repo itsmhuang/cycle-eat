@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import * as Styled from './styles';
 import { Formik } from 'formik';
 
-const PlaceInput = ({ query, onSetQuery, onFormSubmit }) => {
+const PlaceInput = ({ query, onSetQuery, onFormSubmit, centered }) => {
+  const [value, setValue] = useState('');
   const [autocomplete, setAutocomplete] = useState('');
   const [itemSelected, setItemSelected] = useState(false);
   const inputEl = useRef(null);
@@ -11,7 +12,7 @@ const PlaceInput = ({ query, onSetQuery, onFormSubmit }) => {
   let googleDropdown = document.getElementsByClassName('pac-container');
 
   const onSelect = () => {
-    onSetQuery(inputEl.current.value);
+    onSetQuery ? onSetQuery(inputEl.current.value) : setValue(inputEl.current.value);
     let places = autocomplete.getPlaces();
     if (places.length) {
       setField('searchQuery', autocomplete.getPlaces().formatted_address);
@@ -60,7 +61,7 @@ const PlaceInput = ({ query, onSetQuery, onFormSubmit }) => {
   return (
     <Formik
       initialValues={{
-        searchQuery: query,
+        searchQuery: query || value,
       }}
       render={({
         isSubmitting,
@@ -71,7 +72,7 @@ const PlaceInput = ({ query, onSetQuery, onFormSubmit }) => {
       }) => {
         setField = setFieldValue;
         return (
-          <Styled.SearchBarForm onSubmit={handleFormSubmit}>
+          <Styled.SearchBarForm onSubmit={handleFormSubmit} centered={centered}>
             <Styled.SearchInput
               type="text"
               ref={inputEl}
@@ -94,9 +95,14 @@ const PlaceInput = ({ query, onSetQuery, onFormSubmit }) => {
 };
 
 PlaceInput.propTypes = {
-  query: PropTypes.string.isRequired,
-  onSetQuery: PropTypes.func.isRequired,
+  query: PropTypes.string,
+  onSetQuery: PropTypes.func,
   onFormSubmit: PropTypes.func.isRequired,
+  centered: PropTypes.bool,
+};
+
+PlaceInput.defaultProps = {
+  centered: false
 };
 
 export default PlaceInput;

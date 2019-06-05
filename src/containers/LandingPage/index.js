@@ -29,6 +29,7 @@ const LandingPage = () => {
               Search for cyclist-friendly cafes and restaurants
             </Styled.SubHeader>
             <PlaceInput
+              centered
               query={query}
               onSetQuery={setQuery}
               onFormSubmit={handleFormSubmit}

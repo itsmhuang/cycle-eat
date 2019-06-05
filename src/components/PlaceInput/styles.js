@@ -7,7 +7,7 @@ export const SearchBarForm = styled.form`
   background-color: ${props => props && props.theme.colors.white};
   outline: 0;
   padding: 10px;
-  margin: 0 auto;
+  margin: ${props => props.centered && '0 auto'};
   width: 55%;
   border-radius: 3px;
 
