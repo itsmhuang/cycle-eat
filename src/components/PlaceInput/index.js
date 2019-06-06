@@ -86,16 +86,15 @@ const PlaceInput = ({
 
   //add event listener
   useEffect(() => {
-    const scripts = Array.prototype.slice.call(
-      document.getElementsByTagName('script'),
-    );
-
-    const gMapScript = scripts.find(script =>
-      script.src.includes('maps.googleapis.com/maps/api/js'),
-    );
-
     if (scriptLoaded) {
       if (!window.google) {
+        const scripts = Array.prototype.slice.call(
+          document.getElementsByTagName('script'),
+        );
+
+        const gMapScript = scripts.find(script =>
+          script.src.includes('maps.googleapis.com/maps/api/js'),
+        );
         if (gMapScript) {
           gMapScript.addEventListener('load', onScriptLoad);
           return () => gMapScript.removeEventListener('load', onScriptLoad);
@@ -132,7 +131,11 @@ const PlaceInput = ({
       }) => {
         setField = setFieldValue;
         return (
-          <Styled.SearchBarForm onSubmit={handleFormSubmit} centered={centered} fullWidth={fullWidth}>
+          <Styled.SearchBarForm
+            onSubmit={handleFormSubmit}
+            centered={centered}
+            fullWidth={fullWidth}
+          >
             <Styled.SearchInput
               type="text"
               ref={inputEl}
