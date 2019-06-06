@@ -8,7 +8,7 @@ export const SearchBarForm = styled.form`
   outline: 0;
   padding: 10px;
   margin: ${props => props.centered && '0 auto'};
-  width: 55%;
+  width: ${props => !props.fullWidth && '55%'};
   border-radius: 3px;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.md}) {
@@ -65,7 +65,8 @@ export const SearchInput = styled.input`
 
 export const SearchBtn = styled(NavBtn)`
   background-color: ${props => props && props.theme.colors.white};
-  color: ${props => props.disabled ? props.theme.colors.lightGray : props.theme.colors.teal};
+  color: ${props =>
+    props.disabled ? props.theme.colors.lightGray : props.theme.colors.teal};
   float: right;
   margin: 0;
 `;
@@ -73,5 +74,4 @@ export const SearchBtn = styled(NavBtn)`
 export const SearchIcon = styled(Search)`
   width: 18px;
   color: inherit;
-  
 `;
