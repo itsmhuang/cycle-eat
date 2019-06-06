@@ -10,6 +10,7 @@ const PlaceInput = ({
   centered,
   scriptLoaded,
   map,
+  fullWidth,
   // markers,
   // onSetMarkers
 }) => {
@@ -40,7 +41,7 @@ const PlaceInput = ({
     // markers = [];
 
     let bounds = new window.google.maps.LatLngBounds();
-    
+
     places.forEach(function(place) {
       if (!place.geometry) {
         console.log('Returned place contains no geometry');
@@ -131,7 +132,7 @@ const PlaceInput = ({
       }) => {
         setField = setFieldValue;
         return (
-          <Styled.SearchBarForm onSubmit={handleFormSubmit} centered={centered}>
+          <Styled.SearchBarForm onSubmit={handleFormSubmit} centered={centered} fullWidth={fullWidth}>
             <Styled.SearchInput
               type="text"
               ref={inputEl}
@@ -161,6 +162,7 @@ PlaceInput.propTypes = {
   onFormSubmit: PropTypes.func.isRequired,
   centered: PropTypes.bool,
   scriptLoaded: PropTypes.bool.isRequired,
+  fullWidth: PropTypes.bool,
 };
 
 PlaceInput.defaultProps = {

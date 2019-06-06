@@ -10,8 +10,8 @@ const MapPage = ({ location }) => {
   const [markers, setMarkers] = useState(null);
   const [map, setMap] = useState(null);
   const mapEl = useRef(null);
-  
-    const onScriptLoad = () => {
+
+  const onScriptLoad = () => {
     setMap(
       new window.google.maps.Map(mapEl.current, {
         center: { lat: 48, lng: 8 },
@@ -19,7 +19,7 @@ const MapPage = ({ location }) => {
       }),
     );
   };
-  
+
   useEffect(() => {
     const script = document.createElement('script');
     script.type = 'text/javascript';
@@ -32,32 +32,28 @@ const MapPage = ({ location }) => {
       headScript.parentNode.insertBefore(script, headScript);
       script.addEventListener('load', onScriptLoad);
       return () => script.removeEventListener('load', onScriptLoad);
-
     } else {
-        onScriptLoad();
-      }
+      onScriptLoad();
+    }
     setScriptLoaded(true);
   }, [window.google]);
 
   return (
-    <>
-      <Styled.SearchBarContainer>
-        <PlaceInput
-          onFormSubmit={() => console.log('hello')}
-          scriptLoaded={scriptLoaded}
-          markers={markers}
-          onSetMarkers={setMarkers}
-          map={map}
-        />
-      </Styled.SearchBarContainer>
-      <Styled.Container>
-        <Styled.LeftColumn>
+    <Styled.Container>
+      <Styled.LeftColumn>
+        <Styled.SearchBarContainer>
+          <PlaceInput
+            onFormSubmit={() => console.log('hello')}
+            scriptLoaded={scriptLoaded}
+            markers={markers}
+            onSetMarkers={setMarkers}
+            map={map}
+            fullWidth
+          />
+        </Styled.SearchBarContainer>
         <Styled.Map ref={mapEl} scriptLoaded={scriptLoaded} />
       </Styled.LeftColumn>
-      </Styled.Container>
-      
-      
-    </>
+    </Styled.Container>
   );
 };
 
