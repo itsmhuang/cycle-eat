@@ -9,6 +9,9 @@ const PlaceInput = ({
   onFormSubmit,
   centered,
   scriptLoaded,
+  map,
+  // markers,
+  // onSetMarkers
 }) => {
   const [value, setValue] = useState('');
   const [autocomplete, setAutocomplete] = useState('');
@@ -16,16 +19,59 @@ const PlaceInput = ({
   const inputEl = useRef(null);
   let setField = null;
   let googleDropdown = document.getElementsByClassName('pac-container');
+  let markers = [];
 
   const onSelect = () => {
     onSetQuery
       ? onSetQuery(inputEl.current.value)
       : setValue(inputEl.current.value);
-    let places = autocomplete.getPlaces();
-    if (places.length) {
-      setField('searchQuery', autocomplete.getPlaces().formatted_address);
-      setItemSelected(true);
+    const places = autocomplete.getPlaces();
+
+    if (places.length === 0) {
+      return;
     }
+
+    setField('searchQuery', autocomplete.getPlaces().formatted_address);
+    setItemSelected(true);
+
+    markers.forEach(marker => {
+      marker.setMap(null);
+    });
+    // markers = [];
+
+    let bounds = new window.google.maps.LatLngBounds();
+    
+    places.forEach(function(place) {
+      if (!place.geometry) {
+        console.log('Returned place contains no geometry');
+        return;
+      }
+      const icon = {
+        url: place.icon,
+        size: new window.google.maps.Size(71, 71),
+        origin: new window.google.maps.Point(0, 0),
+        anchor: new window.google.maps.Point(17, 34),
+        scaledSize: new window.google.maps.Size(25, 25),
+      };
+
+      //create marker for each place
+      markers.push(
+        new window.google.maps.Marker({
+          map,
+          icon,
+          title: place.name,
+          position: place.geometry.location,
+        }),
+      );
+
+      if (place.geometry.viewport) {
+        // Only geocodes have viewport
+        bounds.union(place.geometry.viewport);
+      } else {
+        bounds.extend(place.geometry.location);
+      }
+    });
+    map.fitBounds(bounds);
   };
 
   const handleFormSubmit = event => {
@@ -110,6 +156,8 @@ const PlaceInput = ({
 PlaceInput.propTypes = {
   query: PropTypes.string,
   onSetQuery: PropTypes.func,
+  markers: PropTypes.string,
+  onSetMarkers: PropTypes.func,
   onFormSubmit: PropTypes.func.isRequired,
   centered: PropTypes.bool,
   scriptLoaded: PropTypes.bool.isRequired,

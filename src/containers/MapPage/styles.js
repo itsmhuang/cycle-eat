@@ -12,3 +12,7 @@ export const LeftColumn = styled.div`
 height: 100%;
   width: 60%;
 `;
+
+export const Map = styled.div`
+  height: calc(100vh - 101px);
+`;
