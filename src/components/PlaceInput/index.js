@@ -22,11 +22,13 @@ const PlaceInput = ({
   let googleDropdown = document.getElementsByClassName('pac-container');
   let markers = [];
 
+  //todo: prevent re-submit if input value has not been changed, minimize api calls
   const onSelect = () => {
     onSetQuery
       ? onSetQuery(inputEl.current.value)
       : setValue(inputEl.current.value);
     const places = autocomplete.getPlaces();
+    console.log('places: ', places);
 
     if (places.length === 0) {
       return;
@@ -38,7 +40,7 @@ const PlaceInput = ({
     markers.forEach(marker => {
       marker.setMap(null);
     });
-    // markers = [];
+    markers = [];
 
     let bounds = new window.google.maps.LatLngBounds();
 
@@ -109,6 +111,14 @@ const PlaceInput = ({
       }
     }
   }, [scriptLoaded]);
+
+  useEffect(() => {
+    if (map && autocomplete) {
+      map.addListener('bounds_changed', () => {
+        autocomplete.setBounds(map.getBounds());
+      });
+    }
+  }, [map, autocomplete]);
 
   //add listener for searchBox
   useEffect(() => {
