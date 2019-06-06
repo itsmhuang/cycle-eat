@@ -37,7 +37,7 @@ const Map = ({ scriptLoaded }) => {
     }
   }, [scriptLoaded]);
 
-  return <div ref={mapEl} style={{ height: '70vh' }} />;
+  return <Styled.Map ref={mapEl} />;
 };
 
 Map.propTypes = {

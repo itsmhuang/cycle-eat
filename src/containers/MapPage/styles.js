@@ -1,5 +1,14 @@
 import styled from 'styled-components';
 
 export const SearchBarContainer = styled.div`
-  border: 1px solid red;
+`;
+
+export const Container = styled.div`
+  display: flex;
+  height: 100%;
+`;
+
+export const LeftColumn = styled.div`
+height: 100%;
+  width: 60%;
 `;

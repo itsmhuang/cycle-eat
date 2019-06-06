@@ -32,8 +32,13 @@ const MapPage = ({ location }) => {
           scriptLoaded={scriptLoaded}
         />
       </Styled.SearchBarContainer>
-
-      <Map scriptLoaded={scriptLoaded} />
+      <Styled.Container>
+        <Styled.LeftColumn>
+        <Map scriptLoaded={scriptLoaded} />
+      </Styled.LeftColumn>
+      </Styled.Container>
+      
+      
     </>
   );
 };
