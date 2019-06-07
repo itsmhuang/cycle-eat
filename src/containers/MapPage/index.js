@@ -88,3 +88,4 @@ const MapPage = ({ location }) => {
 };
 
 export default MapPage;
+
