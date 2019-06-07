@@ -27,14 +27,6 @@ const MapPage = ({ location }) => {
     );
   };
 
-  const handleLocationError = (browserHasGeolocation, infoWindow, pos) => {
-    infoWindow.setPosition(pos);
-    infoWindow.setContent(browserHasGeolocation ?
-      'Error: The Geolocation service failed.' :
-      'Error: Your browser doesn\'t support geolocation.');
-    infoWindow.open(map);
-  }
-
   useEffect(() => {
     const script = document.createElement('script');
     script.type = 'text/javascript';
@@ -64,18 +56,16 @@ const MapPage = ({ location }) => {
             lng: position.coords.longitude
         };
         
-        infoWindow.setPosition(pos);
-        infoWindow.setContent('Location found.');
-        infoWindow.open(map);
+        // infoWindow.setPosition(pos);
+        // infoWindow.setContent('Location found.');
+        // infoWindow.open(map);
         map.setCenter(pos);
       }, function() {
-        console.log('geolocation true error')
-        // handleLocationError(true, infoWindow, map.getCenter());
+        // user blocked location
       });
     }
     else {
       console.log('Geolocation is not supported for this Browser/OS.');
-      // handleLocationError(false, infoWindow, map.getCenter());
     }
   }
   }, [map,infoWindow])
