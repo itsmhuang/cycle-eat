@@ -11,6 +11,7 @@ const PlaceInput = ({
   scriptLoaded,
   map,
   fullWidth,
+  onSetPlaceInfo
   // markers,
   // onSetMarkers
 }) => {
@@ -22,11 +23,24 @@ const PlaceInput = ({
   let googleDropdown = document.getElementsByClassName('pac-container');
   let markers = [];
 
+  const clearMarkers = () => {
+    markers.forEach(marker => {
+      marker.setMap(null);
+    });
+    
+  };
+
+  //todo: prevent re-submit if input value has not been changed, minimize api calls
   const onSelect = () => {
+    // console.log( 'markers.length: ', markers.length );
+    clearMarkers();
+    markers = [];
+    // console.log( 'markers.length: ', markers.length );
     onSetQuery
       ? onSetQuery(inputEl.current.value)
       : setValue(inputEl.current.value);
     const places = autocomplete.getPlaces();
+    // console.log('places: ', places);
 
     if (places.length === 0) {
       return;
@@ -34,44 +48,43 @@ const PlaceInput = ({
 
     setField('searchQuery', autocomplete.getPlaces().formatted_address);
     setItemSelected(true);
-
-    markers.forEach(marker => {
-      marker.setMap(null);
-    });
-    // markers = [];
+    
 
     let bounds = new window.google.maps.LatLngBounds();
 
-    places.forEach(function(place) {
-      if (!place.geometry) {
-        console.log('Returned place contains no geometry');
-        return;
-      }
-      const icon = {
-        url: place.icon,
-        size: new window.google.maps.Size(71, 71),
-        origin: new window.google.maps.Point(0, 0),
-        anchor: new window.google.maps.Point(17, 34),
-        scaledSize: new window.google.maps.Size(25, 25),
-      };
-
-      //create marker for each place
-      markers.push(
-        new window.google.maps.Marker({
+    //iterate through places and clear marker for each place
+    places.forEach(place => {
+      if (place.geometry) {
+        const icon = {
+          url: place.icon,
+          size: new window.google.maps.Size(71, 71),
+          origin: new window.google.maps.Point(0, 0),
+          anchor: new window.google.maps.Point(17, 34),
+          scaledSize: new window.google.maps.Size(25, 25),
+        };
+        const marker = new window.google.maps.Marker({
           map,
           icon,
           title: place.name,
           position: place.geometry.location,
-        }),
-      );
+        });
 
-      if (place.geometry.viewport) {
-        // Only geocodes have viewport
-        bounds.union(place.geometry.viewport);
-      } else {
-        bounds.extend(place.geometry.location);
+        //show info when user clicks on marker
+        marker.addListener('click', () => {
+          onSetPlaceInfo(place);
+        });
+        markers.push(marker);
+
+        //set map to correct bounds
+        if (place.geometry.viewport) {
+          // Only geocodes have viewport
+          bounds.union(place.geometry.viewport);
+        } else {
+          bounds.extend(place.geometry.location);
+        }
       }
     });
+    console.log( 'markers.length: ', markers.length );
     map.fitBounds(bounds);
   };
 
@@ -109,6 +122,14 @@ const PlaceInput = ({
       }
     }
   }, [scriptLoaded]);
+
+  useEffect(() => {
+    if (map && autocomplete) {
+      map.addListener('bounds_changed', () => {
+        autocomplete.setBounds(map.getBounds());
+      });
+    }
+  }, [map, autocomplete]);
 
   //add listener for searchBox
   useEffect(() => {
@@ -166,6 +187,7 @@ PlaceInput.propTypes = {
   centered: PropTypes.bool,
   scriptLoaded: PropTypes.bool.isRequired,
   fullWidth: PropTypes.bool,
+  onSetPlaceInfo: PropTypes.func,
 };
 
 PlaceInput.defaultProps = {
