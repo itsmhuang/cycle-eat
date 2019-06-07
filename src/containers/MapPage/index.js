@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import queryString from 'query-string';
 import PlaceInput from 'src/components/PlaceInput';
+import PlaceInfo from 'src/components/PlaceInfo';
 import * as Styled from './styles';
 
 const MapPage = ({ location }) => {
@@ -9,6 +10,7 @@ const MapPage = ({ location }) => {
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [markers, setMarkers] = useState(null);
   const [map, setMap] = useState(null);
+  const [placeInfo, setPlaceInfo] = useState(null);
   const mapEl = useRef(null);
 
   const onScriptLoad = () => {
@@ -45,6 +47,7 @@ const MapPage = ({ location }) => {
           <PlaceInput
             onFormSubmit={() => console.log('hello')}
             scriptLoaded={scriptLoaded}
+            onSetPlaceInfo={setPlaceInfo}
             markers={markers}
             onSetMarkers={setMarkers}
             map={map}
@@ -53,6 +56,10 @@ const MapPage = ({ location }) => {
         </Styled.SearchBarContainer>
         <Styled.Map ref={mapEl} scriptLoaded={scriptLoaded} />
       </Styled.LeftColumn>
+      <Styled.RightColumn>
+        {placeInfo && <PlaceInfo info={placeInfo} />}
+        {/*<PlaceInfo info={placeInfo} />*/}
+      </Styled.RightColumn>
     </Styled.Container>
   );
 };

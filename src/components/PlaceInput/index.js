@@ -11,6 +11,7 @@ const PlaceInput = ({
   scriptLoaded,
   map,
   fullWidth,
+  onSetPlaceInfo
   // markers,
   // onSetMarkers
 }) => {
@@ -70,7 +71,7 @@ const PlaceInput = ({
 
         //show info when user clicks on marker
         marker.addListener('click', () => {
-          console.log('place info: ', place);
+          onSetPlaceInfo(place);
         });
         markers.push(marker);
 
@@ -186,6 +187,7 @@ PlaceInput.propTypes = {
   centered: PropTypes.bool,
   scriptLoaded: PropTypes.bool.isRequired,
   fullWidth: PropTypes.bool,
+  onSetPlaceInfo: PropTypes.func,
 };
 
 PlaceInput.defaultProps = {
