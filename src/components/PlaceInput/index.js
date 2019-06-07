@@ -26,11 +26,15 @@ const PlaceInput = ({
     markers.forEach(marker => {
       marker.setMap(null);
     });
-    markers = [];
+    
   };
 
   //todo: prevent re-submit if input value has not been changed, minimize api calls
   const onSelect = () => {
+    // console.log( 'markers.length: ', markers.length );
+    clearMarkers();
+    markers = [];
+    // console.log( 'markers.length: ', markers.length );
     onSetQuery
       ? onSetQuery(inputEl.current.value)
       : setValue(inputEl.current.value);
@@ -43,8 +47,7 @@ const PlaceInput = ({
 
     setField('searchQuery', autocomplete.getPlaces().formatted_address);
     setItemSelected(true);
-
-    clearMarkers();
+    
 
     let bounds = new window.google.maps.LatLngBounds();
 
@@ -65,11 +68,13 @@ const PlaceInput = ({
           position: place.geometry.location,
         });
 
+        //show info when user clicks on marker
         marker.addListener('click', () => {
           console.log('place info: ', place);
         });
-        markers.concat([marker]);
+        markers.push(marker);
 
+        //set map to correct bounds
         if (place.geometry.viewport) {
           // Only geocodes have viewport
           bounds.union(place.geometry.viewport);
@@ -78,6 +83,7 @@ const PlaceInput = ({
         }
       }
     });
+    console.log( 'markers.length: ', markers.length );
     map.fitBounds(bounds);
   };
 
