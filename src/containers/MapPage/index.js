@@ -10,7 +10,6 @@ const MapPage = ({ location }) => {
   const [scriptLoaded, setScriptLoaded] = useState(false);
   const [markers, setMarkers] = useState(null);
   const [map, setMap] = useState(null);
-  const [infoWindow, setInfoWindow] = useState(null);
   const [placeInfo, setPlaceInfo] = useState(null);
   const mapEl = useRef(null);
 
@@ -22,9 +21,6 @@ const MapPage = ({ location }) => {
       }),
     );
 
-    setInfoWindow(
-      new window.google.maps.InfoWindow
-    );
   };
 
   useEffect(() => {
@@ -47,7 +43,7 @@ const MapPage = ({ location }) => {
   }, [window.google]);
 
   useEffect(() => {
-    if (map && infoWindow) {
+    if (map) {
       if (navigator.geolocation) {
         console.log('Geolocation is supported!');
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -56,9 +52,6 @@ const MapPage = ({ location }) => {
             lng: position.coords.longitude
         };
         
-        // infoWindow.setPosition(pos);
-        // infoWindow.setContent('Location found.');
-        // infoWindow.open(map);
         map.setCenter(pos);
       }, function() {
         // user blocked location
@@ -68,7 +61,7 @@ const MapPage = ({ location }) => {
       console.log('Geolocation is not supported for this Browser/OS.');
     }
   }
-  }, [map,infoWindow])
+  }, [map])
 
   return (
     <Styled.Container>
