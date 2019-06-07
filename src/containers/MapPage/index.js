@@ -20,6 +20,7 @@ const MapPage = ({ location }) => {
         zoom: 12,
       }),
     );
+
   };
 
   useEffect(() => {
@@ -38,7 +39,29 @@ const MapPage = ({ location }) => {
       onScriptLoad();
     }
     setScriptLoaded(true);
+
   }, [window.google]);
+
+  useEffect(() => {
+    if (map) {
+      if (navigator.geolocation) {
+        console.log('Geolocation is supported!');
+        navigator.geolocation.getCurrentPosition(function(position) {
+          var pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+        };
+        
+        map.setCenter(pos);
+      }, function() {
+        // user blocked location
+      });
+    }
+    else {
+      console.log('Geolocation is not supported for this Browser/OS.');
+    }
+  }
+  }, [map])
 
   return (
     <Styled.Container>
