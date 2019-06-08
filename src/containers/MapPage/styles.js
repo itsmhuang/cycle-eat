@@ -18,6 +18,7 @@ export const LeftColumn = styled.div`
 
 export const RightColumn = styled.div`
   height: 100%;
+  width: 40%;
 `;
 
 export const Map = styled.div`

@@ -2,7 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 // import queryString from 'query-string';
 import PlaceInput from 'src/components/PlaceInput';
 import PlaceInfo from 'src/components/PlaceInfo';
+import PlacesList from 'src/components/PlacesList';
 import * as Styled from './styles';
+import { testPlaces } from 'src/components/PlaceInput/testPlaces';
 
 const MapPage = ({ location }) => {
   // console.log('location: ', queryString.parse(location.search));
@@ -80,7 +82,8 @@ const MapPage = ({ location }) => {
         <Styled.Map ref={mapEl} scriptLoaded={scriptLoaded} />
       </Styled.LeftColumn>
       <Styled.RightColumn>
-        {placeInfo && <PlaceInfo info={placeInfo} />}
+        {placeInfo ? <PlaceInfo info={placeInfo} /> : <PlacesList places={testPlaces} />}
+
         {/*<PlaceInfo info={placeInfo} />*/}
       </Styled.RightColumn>
     </Styled.Container>

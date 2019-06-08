@@ -2,9 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import * as Styled from './styles';
 import { Formik } from 'formik';
-import { testPlaces } from './testPlaces';
 
-console.log('testPlaces: ', testPlaces);
 
 const PlaceInput = ({
   query,
