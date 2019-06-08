@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import queryString from 'query-string';
+// import queryString from 'query-string';
 import PlaceInput from 'src/components/PlaceInput';
 import PlaceInfo from 'src/components/PlaceInfo';
 import * as Styled from './styles';
@@ -14,13 +14,13 @@ const MapPage = ({ location }) => {
   const mapEl = useRef(null);
 
   const onScriptLoad = () => {
+    const losAngeles = { lat: 34.045575, lng: -118.246866 };
     setMap(
       new window.google.maps.Map(mapEl.current, {
-        center: { lat: 48, lng: 8 },
+        center: losAngeles,
         zoom: 12,
       }),
     );
-
   };
 
   useEffect(() => {
@@ -39,29 +39,29 @@ const MapPage = ({ location }) => {
       onScriptLoad();
     }
     setScriptLoaded(true);
-
   }, [window.google]);
 
   useEffect(() => {
     if (map) {
       if (navigator.geolocation) {
-        console.log('Geolocation is supported!');
-        navigator.geolocation.getCurrentPosition(function(position) {
-          var pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-        };
-        
-        map.setCenter(pos);
-      }, function() {
-        // user blocked location
-      });
+        navigator.geolocation.getCurrentPosition(
+          function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            };
+
+            map.setCenter(pos);
+          },
+          function() {
+            //do something when user blocks location?
+          },
+        );
+      } else {
+        // console.log('Geolocation is not supported for this Browser/OS.');
+      }
     }
-    else {
-      console.log('Geolocation is not supported for this Browser/OS.');
-    }
-  }
-  }, [map])
+  }, [map]);
 
   return (
     <Styled.Container>
