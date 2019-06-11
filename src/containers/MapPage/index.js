@@ -79,12 +79,11 @@ const MapPage = ({ location }) => {
             fullWidth
           />
         </Styled.SearchBarContainer>
-        <Styled.Map ref={mapEl} scriptLoaded={scriptLoaded} />
+        <Styled.Map ref={mapEl} />
       </Styled.LeftColumn>
       <Styled.RightColumn>
-        {placeInfo ? <PlaceInfo info={placeInfo} /> : <PlacesList places={testPlaces} />}
-
-        {/*<PlaceInfo info={placeInfo} />*/}
+        {placeInfo && <PlaceInfo info={placeInfo} />}
+        {!placeInfo && map && <PlacesList places={testPlaces} map={map} />}
       </Styled.RightColumn>
     </Styled.Container>
   );

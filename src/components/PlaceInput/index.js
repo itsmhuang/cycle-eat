@@ -80,7 +80,6 @@ const PlaceInput = ({
         }
       }
     });
-    console.log('markers.length: ', markers.length);
     map.fitBounds(bounds);
   };
 

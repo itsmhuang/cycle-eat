@@ -17,8 +17,9 @@ export const LeftColumn = styled.div`
 `;
 
 export const RightColumn = styled.div`
-  height: 100%;
+  height: calc(100vh - 61px);
   width: 40%;
+  overflow-y: scroll;
 `;
 
 export const Map = styled.div`
