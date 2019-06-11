@@ -9,39 +9,40 @@ const PlacesList = ({ places, map }) => {
     if (window.google && map) {
       const service = new window.google.maps.places.PlacesService(map);
       places.forEach((place, i) => {
-        
         const request = {
-            placeId: place.place_id,
-            fields: [
-              'address_components',
-              'formatted_phone_number',
-              'opening_hours',
-              'photos',
-              'place_id',
-              'name',
-            ],
-          };
-          const callBack = (details, status) => {
-            if (status === window.google.maps.places.PlacesServiceStatus.OK) {
-              setDetailedPlaces(detailedPlaces =>
-                detailedPlaces.concat([details]),
-              );
-            } else {
-              console.log('error status: ', status);
-            }
-          };
-          service.getDetails(request, callBack);
+          placeId: place.place_id,
+          fields: [
+            'address_components',
+            'formatted_phone_number',
+            'opening_hours',
+            'photos',
+            'place_id',
+            'name',
+          ],
+        };
+        const callBack = (details, status) => {
+          if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+            setDetailedPlaces(detailedPlaces =>
+              detailedPlaces.concat([{ ...place, ...details }]),
+            );
+          }
+        };
+        service.getDetails(request, callBack);
       });
     }
   }, [window.google, map]);
+
+  useEffect(() => {
+    if (detailedPlaces.length) {
+      console.log('detailedPlaces: ', detailedPlaces);
+    }
+  }, [detailedPlaces]);
 
   return (
     <>
       {detailedPlaces.length
         ? detailedPlaces.map(place => {
-            const streetAddress = `${place.address_components[0].long_name} ${
-              place.address_components[1].long_name
-            }`;
+            const streetAddress = place.formatted_address.split(',')[0];
             return (
               <Styled.PlaceContainer key={place.place_id}>
                 <Styled.Title>{place.name}</Styled.Title>
